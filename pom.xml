@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [
+		<!ELEMENT project (modelVersion|groupId|artifactId|version|packaging|name|description|parent|properties|dependencies|build)*>
+		<!ATTLIST project
+				xmlns CDATA #REQUIRED
+				xmlns:xsi CDATA #REQUIRED
+				xsi:schemaLocation CDATA #REQUIRED>
+		<!ELEMENT modelVersion (#PCDATA)>
+		<!ELEMENT groupId (#PCDATA)>
+		<!ELEMENT artifactId (#PCDATA)>
+		<!ELEMENT version (#PCDATA)>
+		<!ELEMENT packaging (#PCDATA)>
+		<!ELEMENT name (#PCDATA)>
+		<!ELEMENT description (#PCDATA)>
+		<!ELEMENT parent (groupId|artifactId|version)*>
+		<!ELEMENT properties (project.build.sourceEncoding|project.reporting.outputEncoding)*>
+		<!ELEMENT project.build.sourceEncoding (#PCDATA)>
+		<!ELEMENT project.reporting.outputEncoding (#PCDATA)>
+		<!ELEMENT dependencies (dependency)*>
+		<!ELEMENT dependency (groupId|artifactId|scope)*>
+		<!ELEMENT scope (#PCDATA)>
+		<!ELEMENT build (plugins)*>
+		<!ELEMENT plugins (plugin)*>
+		<!ELEMENT plugin (groupId|artifactId)*>
+		]>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -11,17 +35,23 @@
 	<name>sean-boot</name>
 	<description>Demo project for Spring Boot</description>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.3.RELEASE</version>
-	</parent>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!--<java.version>1.8</java.version>-->
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>1.4.3.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<dependency>
@@ -35,6 +65,10 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
        <!-- <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
